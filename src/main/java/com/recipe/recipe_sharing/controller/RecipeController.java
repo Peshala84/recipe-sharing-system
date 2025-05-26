@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/recipes")
 public class RecipeController {
 
     @Autowired
@@ -17,7 +18,7 @@ public class RecipeController {
 
     @Autowired
    private UserService userService;
-     @PostMapping("api/recipe/user/{userId}")
+     @PostMapping("/user/{userId}")
     public Recipe createRecipe(@RequestBody Recipe recipe , @PathVariable Long userId) throws Exception {
 
          User user = userService.findUserById(userId);
@@ -25,21 +26,27 @@ public class RecipeController {
         Recipe createdRecipe = recipeService.createRecipe(recipe , user);
         return createdRecipe;
     }
-    @PutMapping("api/recipe/user/{userId}")
-    public Recipe updateRecipe(@RequestBody Recipe recipe , @PathVariable Long userId) throws Exception {
+    @PutMapping("{id}")
+    public Recipe updateRecipe(@RequestBody Recipe recipe , @PathVariable Long id) throws Exception {
+
+        Recipe UpdatedRecipe = recipeService.updateRecipe(recipe , id);
+        return UpdatedRecipe;
+    }
+    @PutMapping("/{id}/like/user/{userId}")
+    public Recipe likeRecipe(@PathVariable Long userId , @PathVariable Long id) throws Exception {
 
         User user = userService.findUserById(userId);
 
-        Recipe createdRecipe = recipeService.createRecipe(recipe , user);
-        return createdRecipe;
+        Recipe UpdatedRecipe = recipeService.likeRecipe(id , user);
+        return UpdatedRecipe;
     }
-    @GetMapping("api/recipe")
+    @GetMapping()
     public List<Recipe> getAllRecipe() throws Exception {
 
         List<Recipe> recipes = recipeService.findAllRecipe();
         return recipes;
     }
-    @DeleteMapping("api/recipe/{recipeId}")
+    @DeleteMapping("/{recipeId}")
     public String deleteRecipe(@PathVariable Long recipeId) throws Exception {
 
        recipeService.deleteRecipe(recipeId);
