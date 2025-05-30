@@ -1,1 +1,32 @@
-<p>recipe-card works!</p>
+<mat-card class="example-card">
+  <mat-card-header>
+    <img mat-card-avatar src="https://www.foodiesfeed.com/wp-content/uploads/2023/06/burger-with-melted-cheese.jpg"
+      alt="">
+    <mat-card-title>{{recipe.fullName}}</mat-card-title>
+    <mat-card-subtitle>recipe-sharing</mat-card-subtitle>
+  </mat-card-header>
+  <img class="max-h-[400px] object-cover " mat-card-image [src]="recipe.image" alt="Photo of a Shiba Inu">
+  <mat-card-content>
+    <p>
+      {{recipe.description}}
+    </p>
+  </mat-card-content>
+  <mat-card-actions class="flex justify-between">
+    <div>
+      <button mat-icon-button aria-label="Example icon button with a home icon">
+        <mat-icon>favorite</mat-icon>
+      </button>
+      <button (click)="handleopenEditRecipeForm()" mat-icon-button aria-label="Example icon button with a home icon">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button aria-label="Example icon button with a home icon">
+        <mat-icon>share</mat-icon>
+      </button>
+    </div>
+    <div>
+      <button (click)="handleDeleteRecipe()" mat-icon-button aria-label="Example icon button with a home icon">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </mat-card-actions>
+</mat-card>
